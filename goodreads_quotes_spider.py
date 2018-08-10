@@ -6,14 +6,14 @@ import unicodedata
 import re
 
 def getSearchTerm():
-	print 'Enter your search term - '
-	search_term = raw_input()
+	print('Enter your search term - ')
+	search_term = input()
 	return search_term
 
 def getPageCount():
 	MAX = 10000
-	print 'Enter number of pages to find (-1 for all) - '
-	num_pages = raw_input()
+	print('Enter number of pages to find (-1 for all) - ')
+	num_pages = input()
 	if num_pages == -1:
 		return MAX
 	return int(num_pages)
@@ -51,35 +51,37 @@ def nextPage():
 			num = re.findall('page=([0-9]*)&',url_add)
 			curr = int(num[0])
 			return curr,url_add
+
 #Main Begins
 
-search_term = getSearchTerm()
-num_pages = getPageCount()
-initGoodreadSpider(search_term)
+if __name__ == '__main__':
+	search_term = getSearchTerm()
+	num_pages = getPageCount()
+	initGoodreadSpider(search_term)
 
-url_add = "/quotes/search?q="+search_term+"&"
+	url_add = "/quotes/search?q="+search_term+"&"
 
-old_curr = 0
-curr = 1
+	old_curr = 0
+	curr = 1
 
-while 1:
-	old_curr = curr
-	
-	html = urllib.urlopen(''+url_base+url_add).read()
-	soup = BeautifulSoup(html,'html.parser')
-	pageNoText = str(curr)
-	pageNoText = '-------------------PAGE'+pageNoText+'-------------------'
-	target.write('\n\n\n')
-	target.write(pageNoText)
-	target.write('\n\n\n')
-	printQuote()	
-	
-	curr,url_add = nextPage()
-	
-	if curr>=num_pages:
-		break
-		
-	if curr<old_curr:
-		break
-		
-target.close()
+	while 1:
+		old_curr = curr
+
+		html = urllib.request.urlopen(''+url_base+url_add).read()
+		soup = BeautifulSoup(html,'html.parser')
+		pageNoText = str(curr)
+		pageNoText = '-------------------PAGE'+pageNoText+'-------------------'
+		target.write('\n\n\n')
+		target.write(pageNoText)
+		target.write('\n\n\n')
+		printQuote()
+
+		curr,url_add = nextPage()
+
+		if curr>=num_pages:
+			break
+
+		if curr<old_curr:
+			break
+
+	target.close()
