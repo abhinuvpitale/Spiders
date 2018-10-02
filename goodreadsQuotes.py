@@ -5,9 +5,16 @@ import bs4
 import unicodedata
 import re
 import json
+import argparse
 
-search_term = 'fun'
-num_pages = 10
+parser = argparse.ArgumentParser()
+parser.add_argument("term", help="search term")
+parser.add_argument("pages", help="number of pages to be searched")
+
+args = parser.parse_args()
+
+search_term = args.term
+num_pages = int(args.pages)
 
 file_name = ''+search_term+'_goodread_quotes_'+'.json'
 target = open(file_name,'w')
