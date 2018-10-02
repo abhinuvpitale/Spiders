@@ -1,9 +1,10 @@
 from bs4 import BeautifulSoup
-import urllib
+import urllib.request as urllib
 import xlsxwriter
+from importlib import reload
 import sys
 reload(sys)
-sys.setdefaultencoding('utf-8')
+# sys.setdefaultencoding('utf-8')
 
 wk = xlsxwriter.Workbook('proflist.xlsx')
 ws = wk.add_worksheet()
@@ -24,17 +25,17 @@ for item in tags_a:
 	#target.write('\n')
 	#target.write('\n')
 	
-i=0;
-j=0;
+i=0
+j=0
 
-print len(links)	
+print(len(links))	
 for link in links:
 	url = link
 	html_basic = urllib.urlopen(''+url).read()
 	soup_basic = BeautifulSoup(html_basic,'html.parser')
 	tags_p = soup_basic('p')	
 	ws.write(i,j,link.encode("utf-8"))
-	j = j + 1;
+	j = j + 1
 
 	for item in tags_p:	
 		if item.get('class') is not None:
@@ -44,7 +45,7 @@ for link in links:
 				
 	i =i + 1
 	j = 0
-	print i
+	print(i)
 	
 	
 		#	for inneritem in item:

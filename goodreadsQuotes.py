@@ -1,4 +1,4 @@
-import urllib
+import urllib.request
 from bs4 import BeautifulSoup
 from sys import argv
 import bs4
@@ -35,7 +35,8 @@ while num_pages > 0:
             start = str.index(quote_str,'“')
             end = str.index(quote_str,'”')
             quote_str = quote_str[start+1:end-1]
-            quote[item.a.text] = quote_str
+            if item.a:
+                quote[item.a.text] = quote_str
 
 
     tags_a = soup('a')

@@ -1,4 +1,4 @@
-import urllib
+import urllib.request
 from bs4 import BeautifulSoup
 from sys import argv
 import bs4
@@ -6,7 +6,7 @@ import unicodedata
 import re
 
 url_base = "https://www.theverge.com"
-html = urllib.urlopen(''+url_base).read()
+html = urllib.request.urlopen(''+url_base).read()
 soup = BeautifulSoup(html,'html.parser')
 tags_span = soup('a')
 target = open('test.docx','w')
