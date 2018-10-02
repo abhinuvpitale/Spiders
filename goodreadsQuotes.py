@@ -47,7 +47,7 @@ while num_pages > 0:
             num = re.findall('page=([0-9]*)&', url_add)
             curr = int(num[0])
             break
-    if curr < old_curr:
+    if old_curr-curr>0:
         break
     num_pages = num_pages - 1
 target.write(json.dumps(quote))
